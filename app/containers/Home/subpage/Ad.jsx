@@ -1,5 +1,6 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
+import HomeAd from '../../../components/HomeAd';
 import { getAdData } from '../../../fetch/home/home';
 
 class Ad extends React.Component {
@@ -14,7 +15,11 @@ class Ad extends React.Component {
   render() {
     return (
       <div>
-        {this.state.data.length}
+        {
+          this.state.data.length
+          ? <HomeAd data={this.state.data} />
+          : <div>加载中...</div>
+        }
       </div>
     )
   }
@@ -28,7 +33,10 @@ class Ad extends React.Component {
       if (data.length) {
         this.setState({ data });
       }
-      // console.log(json);
+    }).catch(ex => {
+      if (__DEV__) {
+        console.error('Home ads module get error', ex.message);
+      }
     });
   }
 }

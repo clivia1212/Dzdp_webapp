@@ -1,2 +1,0 @@
-/*! Copyright by clivia121@github.com */
-webpackJsonp([1],[function(e,t,n){"use strict";function l(e){return e&&e.__esModule?e:{default:e}}var u=n(78),o=l(u),r=n(52);(0,r.render)(o.default.createElement("div",null,"hello"),document.getElementById("root"))}]);

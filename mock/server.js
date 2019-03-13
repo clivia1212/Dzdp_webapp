@@ -1,53 +1,40 @@
-var app = require('koa')();
-var router = require('koa-router')();
-// var koaBody = require('koa-body')();
 
-// router.get('/', function *(next) {
-//   this.body = 'hello koa !';
-// });
+const Koa = require('koa');
+const Router = require('koa-router');
+const koaStatic = require('koa-static');
 
-// router.get('/api', function *(next) {
-//   this.body = 'test data';
-// });
+const app = new Koa();
+const router = new Router();
 
-// router.get('/api/1', function *(next) {
-//   this.body = 'test data 1';
-// });
+app
+  .use(router.routes())
+  .use(router.allowedMethods());
 
-// router.get('/api/2', function *(next) {
-//   this.body = {
-//     a: 1,
-//     b: '123',
-//   }
-// });
-
-// router.post('/api/post', koaBody, function *(next) {
-//   console.log(this.request.body);
-//   this.body = JSON.stringify(this.request.body);
-// });
+router.get('/', async (ctx, next) => {
+  ctx.body = 'Hello World';
+});
 
 // 首页 --- 广告（超值特惠）
-var homeAdData = require('./home/ad.js');
-router.get('/api/homead', function *(next) {
-  this.body = homeAdData;
+const homeAdData = require('./home/ad.js');
+router.get('/api/homead', async (ctx, next) => {
+  ctx.body = homeAdData;
 });
 
 // 首页 --- 推荐列表（猜你喜欢）
-var homeListData = require('./home/list.js');
-router.get('/api/homelist/:city/:page', function *(next) {
+const homeListData = require('./home/list.js');
+router.get('/api/homelist/:city/:page', async (ctx, next) => {
   // 参数
-  const params = this.params;
+  const params = ctx.params;
   const paramsCity = params.city;
   const paramsPage = params.page;
 
   console.log('当前城市：' + paramsCity);
   console.log('当前页数：' + paramsPage);
 
-  this.body = homeListData;
+  ctx.body = homeListData;
 
 });
 
-app.use(router.routes())
-  .use(router.allowedMethods());
+app.use(koaStatic(__dirname, './www'));
 
 app.listen(3000);

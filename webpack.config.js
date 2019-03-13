@@ -16,7 +16,7 @@ module.exports = {
       { test: /\.(js|jsx)$/, exclude: /node_modules/, loader: 'babel?presets[]=es2015&presets[]=react'},
       { test: /\.less$/, exclude: /node_modules/, loader: 'style!css!postcss!less'},
       { test: /\.css$/, exclude: /node_modules/, loader: 'style!css!postcss'},
-      { test: /\.(png|gif|jpg|jpeg|bmp)$/i, loader: 'url-loader?limit=5000'},
+      { test: /\.(png|gif|jpg|jpeg|bmp)$/i, loader: 'url-loader?limit=20000'},
       { test: /\.(woff|woff2|svg|ttf|eot)($|\?)/i, loader: 'url-loader?limit=5000'},
     ]
   },
@@ -48,6 +48,11 @@ module.exports = {
       // 凡是 ‘/api’ 开头的http请求，都会被代理到 localhost:3000
       // koa 代码在 ./mock 目录中，启动命令为 npm run mock
       '/api': {
+        target: 'http://localhost:3000',
+        secure: false,
+      },
+      // 服务器数据
+      '/www': {
         target: 'http://localhost:3000',
         secure: false,
       }
