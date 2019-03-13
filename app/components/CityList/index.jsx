@@ -3,6 +3,8 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 import CITYS from '../../constants/citys';
 
+import './index.less';
+
 class CityList extends React.Component {
   constructor(props) {
     super(props);
@@ -12,7 +14,8 @@ class CityList extends React.Component {
   render() {
     return (
       <div className="city-list-container">
-        <ul className="clearfix">
+        <h3>热门城市</h3>
+        <ul className="clear-fix">
           {
             CITYS.map(city => (
               <li key={city}>

@@ -15,7 +15,7 @@ class List extends React.Component {
   render() {
     const { data } = this.props;
     return (
-      <div>
+      <div className="list-container">
         {
           data.map((item, index) => {
             return <Item key={index} data={item} />
