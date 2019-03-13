@@ -31,6 +31,9 @@ class City extends React.Component {
     // 1. 修改redux
     // 2. 修改localStorage
     // 3. 跳转到首页
+    if (cityName == null) {
+      return;
+    }
     this.props.userInfoActions.updateCityName({
       cityName,
     });

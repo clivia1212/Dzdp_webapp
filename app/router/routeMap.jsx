@@ -6,7 +6,7 @@ import Home from '../containers/Home';
 import List from '../containers/List';
 import Detail from '../containers/Detail';
 import City from '../containers/City';
-// import Search from '../containers/Search';
+import Search from '../containers/Search';
 import NotFound from '../containers/404';
 
 
@@ -23,7 +23,7 @@ class RouteMap extends React.Component {
           <Route path="list" component={List} />
           <Route path="detail/:id" component={Detail} />
           <Route path="/city" component={City} />
-          {/* <Route path="/search/:category(/:keyword)" component={Search} /> */}
+          <Route path="/search/:category(/:keyword)" component={Search} />
           <Route path="*" component={NotFound} />
         </Route>
       </Router>

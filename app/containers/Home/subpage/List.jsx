@@ -2,6 +2,7 @@ import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import { getListData } from '../../../fetch/home/home';
 import ListComponent from '../../../components/List';
+import LoadMore from '../../../components/LoadMore';
 
 import './style.less';
 
@@ -10,8 +11,14 @@ class List extends React.Component {
     super(props, context);
     this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
     this.state = {
+      // 存储列表信息
       data: [],
+      // 记录当前状态下，还有没有更多数据可供下载
       hasMore: false,
+      // 记录当前状态下，是“加载中.."还是“点击加载更多”
+      isLoadingMore: false,
+      // 下一页页码
+      page: 1,
     }
   }
 
@@ -27,6 +34,11 @@ class List extends React.Component {
         }
         
         {/* loadmore */}
+        {
+          this.state.hasMore
+          ? <LoadMore isLoadingMore={this.state.isLoadingMore} loadMoreFn={this.loadMoreData.bind(this)} />
+          : <div></div>
+        }
       </div>
     )
   }
@@ -40,6 +52,23 @@ class List extends React.Component {
     const result = getListData(cityName, 0);
     this.resultHandle(result);
   }
+  // 加载更多数据
+  loadMoreData() {
+    // 记录状态
+    this.setState({
+      isLoadingMore: true
+    });
+    const cityName = this.props.cityName;
+    const page = this.state.page; // 下一页页码
+    const result = getListData(cityName, page);    
+    this.resultHandle(result);
+
+    // 增加page的计数
+    this.setState({
+      page: page + 1,
+      isLoadingMore: false,
+    });
+  }
   // 数据处理
   resultHandle(result) {
     result.then(res => {
@@ -51,7 +80,7 @@ class List extends React.Component {
       // 存储
       this.setState({
         hasMore,
-        data,
+        data: this.state.data.concat(data)
       });
     })
   }
