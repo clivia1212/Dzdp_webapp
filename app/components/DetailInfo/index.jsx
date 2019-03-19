@@ -1,25 +1,24 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import Header from '../../components/Header';
-import Info from './subpage/Info';
 
+// import './index.less';
 
-class Detail extends React.Component {
+class DetailInfo extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
   }
 
   render() {
-    // 获取商户id
-    const id = this.props.params.id;
+    const data = this.props.data;
     return (
       <div>
-        <Header title="商户详情" />
-        <Info id={id} />
+        <img src={data.img} alt="" width="100" />
+        <h1>{data.title}</h1>
+        
       </div>
     )
   }
 }
 
-export default Detail;
+export default DetailInfo;
