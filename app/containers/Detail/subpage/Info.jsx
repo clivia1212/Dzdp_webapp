@@ -33,6 +33,10 @@ class Info extends React.Component {
       this.setState({
         info: json
       });
+    }).catch(ex => {
+      if (__DEV__) {
+        console.error('详情页，获取商户信息出错');
+      }
     });
   }
 }

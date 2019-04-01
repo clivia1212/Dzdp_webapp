@@ -1,7 +1,9 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 
-// import './index.less';
+import Star from '../Star';
+
+import './index.less';
 
 class DetailInfo extends React.Component {
   constructor(props, context) {
@@ -10,12 +12,26 @@ class DetailInfo extends React.Component {
   }
 
   render() {
+    // 获取数据
     const data = this.props.data;
     return (
-      <div>
-        <img src={data.img} alt="" width="100" />
-        <h1>{data.title}</h1>
-        
+      <div id="detail-info-container">
+        <div className="info-container clear-fix">
+          <div className="info-img-container float-left">
+            <img src={data.img} alt=""/>
+          </div>
+          <div className="info-content">
+            <h1>{data.title}</h1>
+            <div className="star-container">
+              {/* 引用 Star 组件 */}
+              <Star star={data.star} />
+              <span className="price">¥{data.price}</span>
+            </div> 
+            <p className="sub-title">{data.subTitle}</p>
+          </div>
+        </div>
+        {/* 设置 innerHTML */}
+        <p dangerouslySetInnerHTML={{__html: data.desc}} className="info-desc"></p>
       </div>
     )
   }

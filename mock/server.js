@@ -69,6 +69,33 @@ router.get('/api/search/:page/:city/:category', async (ctx, next) => {
   ctx.body = searchListData;
 });
 
+// 详情页 - 商户信息
+const detailInfo = require('./detail/info');
+router.get('/api/detail/info/:id', async(ctx, next) => {
+  console.log('详情页 - 商户信息');
+
+  const params = ctx.params;
+  const id = params.id;
+  
+  console.log('商户id：' + id);
+  ctx.body = detailInfo;
+});
+
+// 详情页 - 用户评论
+const detailComment = require('./detail/comment');
+router.get('/api/detail/comment/:page/:id', async(ctx, next) => {
+  console.log('详情页 - 用户评论');
+
+  const params = ctx.params;
+  const page = params.page;
+  const id = params.id;
+  
+  console.log('商户id：' + id);
+  console.log('当前页数：' + page);
+
+  ctx.body = detailComment;
+});
+
 app.use(koaStatic(__dirname, './www'));
 
 app.listen(3000);
