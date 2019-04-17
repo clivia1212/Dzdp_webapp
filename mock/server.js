@@ -96,6 +96,29 @@ router.get('/api/detail/comment/:page/:id', async(ctx, next) => {
   ctx.body = detailComment;
 });
 
+// 订单列表
+const orderList = require('./orderlist/orderList.js');
+router.get('/api/orderlist/:username', async (ctx, next) => {
+  console.log('订单列表');
+
+  const params = ctx.params;
+  const username = params.username;
+  console.log('用户名：' + username);
+
+  ctx.body = orderList;
+})
+
+// 提交评论
+router.post('/api/submitComment', async (ctx, next) => {
+  console.log('提交评论');
+
+  // 获取参数
+  ctx.body = {
+    error: 0,
+    msg: 'ok',
+  };
+})
+
 app.use(koaStatic(__dirname, './www'));
 
 app.listen(3000);
